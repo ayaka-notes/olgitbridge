@@ -4,7 +4,7 @@
 const config = module.exports = { forward: { }, ssl: { } };
 
 // overleaf server
-config.olServer = 'http://localhost';
+config.olServer = process.env.OL_GIT_BRIDGE_OVERLEAF_SERVER || 'http://localhost';
 
 // used if all the working directories in one place
 // must be absolute path ending with '/'
@@ -27,15 +27,15 @@ config.reposDir = config.baseDir + 'repos/';
 config.downSyncTimeout = 30000;
 
 // ssl settings
-config.ssl.enable = false;
-config.ssl.key = 'XXX';
-config.ssl.cert = 'XXX';
+config.ssl.enable = process.env.OL_GIT_BRIDGE_SSL_ENABLE || false;
+config.ssl.key = process.env.OL_GIT_BRIDGE_SSL_KEY || 'XXX';
+config.ssl.cert = process.env.OL_GIT_BRIDGE_SSL_CERT || 'XXX';
 
 // change to 443 for https
-config.port = 5000;
+config.port = parseInt(process.env.OL_GIT_BRIDGE_PORT) || 5000;
 
 // enable to forward requests to the main port.
-config.forward.enable = false;
+config.forward.enable = process.env.OL_GIT_BRIDGE_FORWARD_ENABLE === "true" || false;
 // set this to the URL of the server
 config.forward.target = 'https://HOST';
 config.forward.port = 80;
